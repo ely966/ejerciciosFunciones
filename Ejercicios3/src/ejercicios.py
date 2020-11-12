@@ -168,7 +168,26 @@ def numberDivisorPrime(num):
 #Two numbers are friends if the addition of all the divisors less the same number of the one number is equal to the second number and in the other case too. 
 #If the parameters are not valid the method should return false.
 
+def friend(num,num2):
+    sumadivisor=0 #para sumar los divisores
 
+    for d in range (1,num): #recorra numeros desde 1 al primer numero
+        if num % d == 0: #comprobar si d es divisor o no
+            sumadivisor= sumadivisor+d #si es divisor vamos sumandolos
+
+    if sumadivisor == num2: #si la suma de los divisores del primer numero 
+        sumadivisor=0
+
+        for d in range (1,num2): 
+            if num2 % d == 0: #comprobar si d es divisor o no
+                sumadivisor= sumadivisor+d #si es divisor vamos sumandolos
+
+        if sumadivisor == num: #si la suma de divisores del segundo numero es igual al primer numero
+            return True
+        else:
+            return False
+    else: #si la suma de los divisores del primer numero no es igual al segundo numero. No son amigos
+        return False
 
 
 
