@@ -62,6 +62,7 @@ class Test(unittest.TestCase):
         self.assert_(ejercicios.isPrime(201)==0)
         self.assert_(ejercicios.isPrime(0)==-1)
         self.assert_(ejercicios.isPrime(100)==0)
+        self.assert_(ejercicios.isPrime(4)==0)
 # 
         self.assert_(ejercicios.secondOrder(1,-5,6) == 2)
         self.assert_(ejercicios.secondOrder(2,-7,3) == 2)
@@ -73,11 +74,11 @@ class Test(unittest.TestCase):
         self.assert_(ejercicios.numberDivisorPrime(0)== 0)
         self.assert_(ejercicios.numberDivisorPrime(21)== 3)
 #             
-#         self.assert_(ejercicios.friend(8,-2) == False)
-#         self.assert_(ejercicios.friend(-8,8) == False)
-#         self.assert_(ejercicios.friend(220,284) == True)
-#         self.assert_(ejercicios.friend(6,6) == True)
-#         self.assert_(ejercicios.friend(21,21) == False)
+        self.assert_(ejercicios.friend(220,284) == True)
+        self.assert_(ejercicios.friend(8,-2) == False)
+        self.assert_(ejercicios.friend(-8,8) == False)
+        self.assert_(ejercicios.friend(6,6) == True)
+        self.assert_(ejercicios.friend(21,21) == False)
 #         
 #                 
         

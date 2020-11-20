@@ -41,7 +41,7 @@ def daysInMonth(month,anno):
     elif month == 4 or month == 6 or month == 9 or month == 11: # si es abril, junio, septiembre o noviembre
             return 30
     elif month == 2: # si es febrero
-        if anno % 4 == 0 and anno % 100 != 0 and anno %400 != 0: #Bisiesto. que anno sea multiplo de 4, y no de 100 ni de 400. es decir es anno bisiesto
+        if leapYear(anno) == 1: #llamo a la funcion anterior. SI el resultado es 1 es bisiesto
             return 29 # si es febrero de un anno bisiesto
         else:
             return 28 # si es febrero de un anno no bisiesto
@@ -59,8 +59,8 @@ def dayOfWeek(day,month,year):
     a=int((14 - month) / 12)
     y= int(year -a)
     m = int(month + 12 * a - 2)
-    d=int((day + y + int(y/4) - int(y/100) + int(y/400) + int((31*m)/12))%7) #para que no cuente los decimales, hay que ponet int(para que sean enteros) en todas las divisiones
-    return d
+    dia=int((day + y + int(y/4) - int(y/100) + int(y/400) + int((31*m)/12))%7) #para que no cuente los decimales, hay que ponet int(para que sean enteros) en todas las divisiones
+    return dia
 
 
 
@@ -74,14 +74,11 @@ def myPower(num1,num2): #introduzcamos ambos numeros
     multi=num1 #le doy el vlaor num1 l valor multi  para que no tener que añadir uno al for
     if num2 ==0: # si el segundo numero es cero
         return 1
-    elif num1 < 0 and num2 ==0: #si el primero es negativo y el segundo es cero
-        return 1
     elif num2 < 0: # si el segundo numero es negativo
         return -1
     else: # si no es ninguo de los casos anteriores
         for i in range (1,num2):
             multi=multi*num1 #multiplica por si mismo el numero de veces que sea el otro
-            i=i
         return multi # regresa la multiplicacion
 
 
@@ -97,14 +94,23 @@ def numberOfNumbers(num):
     elif num == 0:# si numero es cero
         return 1
     else:
-        contar=len(str(num)) #convierto el numero en un string y cuento sus caracteres
+        div =10
+        contar=1
+        while int(num/div) > 0:
+            
+            div*=10
+            contar=contar+1
+            #contar=len(str(num)) #convierto el numero en un string y cuento sus caracteres
         return contar
-#     contar=0
-#     for i in (str(num)):
-#         i=i
-#         contar=contar+1
-#     print(contar)
 
+# def numberOfNumbers(num):
+#     if num < 0: #si numero es negativo
+#         return -1
+#     elif num == 0:# si numero es cero
+#         return 1
+#     else:
+#         contar=len(str(num)) #convierto el numero en un string y cuento sus caracteres
+#         return contar
 
 
 #
@@ -117,7 +123,7 @@ def isPrime(num):
     if num == 0 or num < 0: #si el numero introducido es negativo o es cero 
         return -1
     else:
-        for i in range (1,num):
+        for i in range (1,num+1):#que cuente y que se sume tambien por si mismo
             if num%i ==0: #para saber cuantos divisores tiene
                 contar=contar+1 #que sume si tiene un divisor y vaya sumando cada divisor
         
@@ -151,13 +157,9 @@ def numberDivisorPrime(num):
     
     else:
         cuantosdivi=0 # para sumar cuantos divisores primos tiene num
-        cuenta=0 #para comprobar cuantos divisores tiene los divisores de num
         for d in range (1,num): #que cuente los numeros hasta num.
             if num %d ==0: # comprobar que si uno de esos numeros(d) es divisor de num
-                for i in range (1,d): # si es divisor comprobamos si es primo o no para ello miramos los numeros primeros sus divisores
-                    if d%i == 0:# si tiene un divisor 
-                        cuenta=cuenta+1 #que los vaya contando los divisores. 
-                if cuenta < 3: #Si ese divisor tiene menos de 3 divisores es primo
+                if isPrime(d) == 1:#llama a la funcion de primos y comprueba si es primo
                     cuantosdivi=cuantosdivi+1 #sumamos que numero num tiene un divisor primos y lso vamos sumando
         return cuantosdivi
 
@@ -168,29 +170,23 @@ def numberDivisorPrime(num):
 #Two numbers are friends if the addition of all the divisors less the same number of the one number is equal to the second number and in the other case too. 
 #If the parameters are not valid the method should return false.
 
+def sumadivisor(numero):
+    sumadivisores=0 #para sumar los divisores
+    for d in range (1,numero): #recorra numeros desde 1 al primer numero
+        if numero % d == 0: #comprobar si d es divisor o no
+            sumadivisores= sumadivisores+d #si es divisor vamos sumandolos
+    return sumadivisores
+
+
+
 def friend(num,num2):
-    sumadivisor=0 #para sumar los divisores
 
-    for d in range (1,num): #recorra numeros desde 1 al primer numero
-        if num % d == 0: #comprobar si d es divisor o no
-            sumadivisor= sumadivisor+d #si es divisor vamos sumandolos
-
-    if sumadivisor == num2: #si la suma de los divisores del primer numero 
-        sumadivisor=0
-
-        for d in range (1,num2): 
-            if num2 % d == 0: #comprobar si d es divisor o no
-                sumadivisor= sumadivisor+d #si es divisor vamos sumandolos
-
-        if sumadivisor == num: #si la suma de divisores del segundo numero es igual al primer numero
+    if sumadivisor(num) == num2: #si la suma de los divisores del primer numero 
+#         sumadivisor=0
+        if sumadivisor(num2) == num: #si la suma de divisores del segundo numero es igual al primer numero
             return True
         else:
             return False
     else: #si la suma de los divisores del primer numero no es igual al segundo numero. No son amigos
         return False
 
-
-
-
-
-    
